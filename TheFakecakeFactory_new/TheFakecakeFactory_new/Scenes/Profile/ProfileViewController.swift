@@ -8,137 +8,188 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
+    
+    private let containerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 20
+        view.layer.borderColor = UIColor.customGray.cgColor
+       view.layer.borderWidth = 1
+        view.backgroundColor = .white
+        return view
+    }()
+    
+    // Sección 1
+    private let profileImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.widthAnchor.constraint(equalToConstant: 114).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 114).isActive = true
+        imageView.layer.cornerRadius = 57
+        imageView.layer.borderColor = UIColor.customGray.cgColor
+        imageView.layer.borderWidth = 1
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    private let nameLabel: UILabel = createLabel(text: "Nombre")
+    private let emailLabel: UILabel = createLabel(text: "Email")
+    private let phoneLabel: UILabel = createLabel(text: "Phone")
+    private let addressLabel: UILabel = createLabel(text: "Address")
+    
+    // Línea divisoria
+    private let separatorLine: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .darkGray
+        return view
+    }()
+    
+    // Sección 2
+    private let editProfileLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Editar perfil"
+        label.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 21).isActive = true
+        return label
+    }()
+    
+    private let nameTextField: UITextField = createTextField(placeholder: "Nombre")
+    private let emailTextField: UITextField = createTextField(placeholder: "Email")
+    private let phoneTextField: UITextField = createTextField(placeholder: "Phone")
+    private let addressTextField: UITextField = createTextField(placeholder: "Address")
+    
+    private let updateButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Actualizar", for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 10
+        button.layer.borderColor = UIColor.gray.cgColor
+        button.layer.borderWidth = 1
+        button.widthAnchor.constraint(equalToConstant: 141).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 47).isActive = true
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .customBgPink
-        setupUI()
+        setupView()
     }
     
-    private func setupUI() {
+    private func setupView() {
+        view.addSubview(containerView)
         
-        let mainStack = UIStackView()
-        mainStack.axis = .vertical
-        mainStack.alignment = .center
-        mainStack.spacing = 20
-        mainStack.backgroundColor = UIColor.white
-        mainStack.layer.borderWidth = 1
-        mainStack.layer.borderColor = UIColor.gray.cgColor
-        mainStack.layer.cornerRadius = 51
-        mainStack.layer.opacity = 1
-        mainStack.isLayoutMarginsRelativeArrangement = true
-        mainStack.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
+        // Añadir subviews al contenedor
+        containerView.addSubview(profileImageView)
+        containerView.addSubview(nameLabel)
+        containerView.addSubview(emailLabel)
+        containerView.addSubview(phoneLabel)
+        containerView.addSubview(addressLabel)
+        containerView.addSubview(separatorLine)
+        containerView.addSubview(editProfileLabel)
+        containerView.addSubview(nameTextField)
+        containerView.addSubview(emailTextField)
+        containerView.addSubview(phoneTextField)
+        containerView.addSubview(addressTextField)
+        containerView.addSubview(updateButton)
         
-        view.addSubview(mainStack)
-        mainStack.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            mainStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            mainStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 10),
-            //            mainStack.widthAnchor.constraint(equalToConstant: 200),
-            //            mainStack.heightAnchor.constraint(equalToConstant: 500)
-        ])
-        
-        // Sección 1: HStack con imagen de perfil y detalles del usuario
-        let profileSection = UIStackView()
-        profileSection.axis = .horizontal
-        profileSection.alignment = .leading
-        profileSection.spacing = 10
-        mainStack.addArrangedSubview(profileSection)
-        
-        let profileImageView = UIImageView()
-        profileImageView.image = UIImage(systemName: "person.circle")
-        profileImageView.contentMode = .scaleAspectFit
-        profileImageView.tintColor = .gray
-        profileImageView.translatesAutoresizingMaskIntoConstraints = false
-        profileImageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        profileImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        profileImageView.layer.cornerRadius = 50
-        profileImageView.clipsToBounds = true
-        profileSection.addArrangedSubview(profileImageView)
-        
-        let detailsStack = UIStackView()
-        detailsStack.axis = .vertical
-        detailsStack.alignment = .leading
-        detailsStack.spacing = 5
-        profileSection.addArrangedSubview(detailsStack)
-        
-        let usernameLabel = UILabel()
-        usernameLabel.text = "ipsum123"
-        detailsStack.addArrangedSubview(usernameLabel)
-        
-        let nameLabel = UILabel()
-        nameLabel.text = "Lorem Ipsum"
-        detailsStack.addArrangedSubview(nameLabel)
-        
-        let emailLabel = UILabel()
-        emailLabel.text = "lorem.ipsum@example.com"
-        detailsStack.addArrangedSubview(emailLabel)
-        
-        let phoneLabel = UILabel()
-        phoneLabel.text = "+52 123 456 7890"
-        detailsStack.addArrangedSubview(phoneLabel)
-        
-        let addressLabel = UILabel()
-        addressLabel.text = "Calle Falsa 123"
-        detailsStack.addArrangedSubview(addressLabel)
-        
-        // Sección 2: VStack con "Editar Usuario" y textfields para editar información
-        let editSection = UIStackView()
-        editSection.axis = .vertical
-        editSection.alignment = .center
-        editSection.spacing = 10
-        mainStack.addArrangedSubview(editSection)
-        
-        let editLabel = UILabel()
-        editLabel.text = "Editar Usuario"
-        editLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        editSection.addArrangedSubview(editLabel)
-        
-        let usernameTextField = createTextField(placeholder: "Nombre de usuario")
-        editSection.addArrangedSubview(usernameTextField)
-        
-        let nameTextField = createTextField(placeholder: "Nombre")
-        editSection.addArrangedSubview(nameTextField)
-        
-        let emailTextField = createTextField(placeholder: "Email")
-        editSection.addArrangedSubview(emailTextField)
-        
-        let phoneTextField = createTextField(placeholder: "Teléfono")
-        editSection.addArrangedSubview(phoneTextField)
-        
-        let addressTextField = createTextField(placeholder: "Dirección")
-        editSection.addArrangedSubview(addressTextField)
-        
-        lazy var updateInfoButton: UIButton = {
-            let button = UIButton(type: .system)
-            button.setTitle("Actualizar", for: .normal)
-            button.setTitleColor(.white, for: .normal)
-            button.layer.cornerRadius = 10
-            button.layer.borderColor = UIColor.customGray.cgColor
-            button.layer.borderWidth = 1
-            button.backgroundColor = .customGray
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
-            return button
-        }()
-        
-        NSLayoutConstraint.activate([
-            updateInfoButton.heightAnchor.constraint(equalToConstant: 30),
-            updateInfoButton.widthAnchor.constraint(equalToConstant: 200)
-        ])
-        editSection.addArrangedSubview(updateInfoButton)
-        
+        // Configurar Auto Layout
+        setupConstraints()
     }
     
-    private func createTextField(placeholder: String) -> UITextField {
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            // Constraints for containerView
+            
+//            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 14),
+            containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 14),
+            containerView.widthAnchor.constraint(equalToConstant: 300),
+            containerView.heightAnchor.constraint(equalToConstant: 584),
+            
+            // Constraints for profileImageView
+            profileImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            profileImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            
+            // Constraints for labels aligned with profileImageView
+            nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            nameLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            nameLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
+            emailLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            emailLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            emailLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            phoneLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 10),
+            phoneLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            phoneLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            phoneLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            addressLabel.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 10),
+            addressLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
+            addressLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            addressLabel.heightAnchor.constraint(equalToConstant: 40),
+            
+            // Constraints for separatorLine
+            separatorLine.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 20),
+            separatorLine.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            separatorLine.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            separatorLine.heightAnchor.constraint(equalToConstant: 2),
+            
+            // Constraints for editProfileLabel
+            editProfileLabel.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 20),
+            editProfileLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            
+            // Constraints for text fields
+            nameTextField.topAnchor.constraint(equalTo: editProfileLabel.bottomAnchor, constant: 10),
+            nameTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            nameTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            nameTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10),
+            emailTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            emailTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            emailTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            phoneTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
+            phoneTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            phoneTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            phoneTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            addressTextField.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: 10),
+            addressTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            addressTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            addressTextField.heightAnchor.constraint(equalToConstant: 40),
+            
+            // Constraints for updateButton
+            updateButton.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 20),
+            updateButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 20)
+        ])
+    }
+    
+    private static func createLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = text
+        label.widthAnchor.constraint(equalToConstant: 352).isActive = true
+        label.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        return label
+    }
+    
+    private static func createTextField(placeholder: String) -> UITextField {
         let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = placeholder
         textField.borderStyle = .roundedRect
-        textField.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        textField.widthAnchor.constraint(equalToConstant: 352).isActive = true
+        textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return textField
-    }
-    
-    @objc private func updateButtonTapped() {
-        print("Actualizar información del usuario")
     }
 }
