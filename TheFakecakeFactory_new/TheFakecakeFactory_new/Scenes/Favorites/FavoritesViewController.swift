@@ -18,7 +18,7 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .customBgPink
 
         setupCarouselView()
         setupBannerLabel()

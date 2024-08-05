@@ -10,7 +10,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .customBgPink
         setupUI()
     }
     
@@ -32,8 +32,8 @@ class ProfileViewController: UIViewController {
         mainStack.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             mainStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            mainStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 14),
-            mainStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 14),
+            mainStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            mainStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 10),
             //            mainStack.widthAnchor.constraint(equalToConstant: 200),
             //            mainStack.heightAnchor.constraint(equalToConstant: 500)
         ])
@@ -110,16 +110,22 @@ class ProfileViewController: UIViewController {
         editSection.addArrangedSubview(addressTextField)
         
         lazy var updateInfoButton: UIButton = {
-            var configuration = UIButton.Configuration.bordered()
-            configuration.title = "Actualizar"
-            configuration.background.cornerRadius = CGFloat (20.0)
-            let button = UIButton(configuration: configuration)
-            button.layer.borderColor = UIColor.gray.cgColor
-            button.tintColor = .white
+            let button = UIButton(type: .system)
+            button.setTitle("Actualizar", for: .normal)
+            button.setTitleColor(.white, for: .normal)
+            button.layer.cornerRadius = 10
+            button.layer.borderColor = UIColor.customGray.cgColor
+            button.layer.borderWidth = 1
+            button.backgroundColor = .customGray
             button.translatesAutoresizingMaskIntoConstraints = false
             button.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
             return button
         }()
+        
+        NSLayoutConstraint.activate([
+            updateInfoButton.heightAnchor.constraint(equalToConstant: 30),
+            updateInfoButton.widthAnchor.constraint(equalToConstant: 200)
+        ])
         editSection.addArrangedSubview(updateInfoButton)
         
     }

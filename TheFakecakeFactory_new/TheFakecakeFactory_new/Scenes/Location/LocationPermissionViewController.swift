@@ -80,7 +80,7 @@ class LocationPermissionsViewController: UIViewController {
     
     @objc private func permissionButtonTapped() {
         let mapVC = MapViewController()
-        mapVC.modalPresentationStyle = .fullScreen
+        //mapVC.modalPresentationStyle = .fullScreen
         present(mapVC, animated: true, completion: nil)
     }
 }
