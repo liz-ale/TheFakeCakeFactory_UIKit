@@ -79,7 +79,7 @@ class HomeViewController: UIViewController {
         secondaryCarousel.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            carousel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            carousel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -50),
             carousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             carousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             carousel.heightAnchor.constraint(equalToConstant: 200),

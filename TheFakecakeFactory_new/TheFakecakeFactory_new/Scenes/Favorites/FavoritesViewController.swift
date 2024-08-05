@@ -10,6 +10,7 @@ import UIKit
 class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITableViewDelegate, UITableViewDataSource {
 
     let imagesBanner = ["bn1", "bn2", "bn3", "bn4"]
+    let images = ["f1", "f2", "f3"]
     var carouselTimer: Timer?
 
     let carouselView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
@@ -53,10 +54,11 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
     func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(CustomTableViewCell.self, forCellReuseIdentifier: "customCell")
+        tableView.register(CustomFavoritesTableViewCell.self, forCellReuseIdentifier: "customFavoritesCell")
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 120
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .customBgPink
         view.addSubview(tableView)
     }
 
@@ -65,7 +67,7 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
         tableView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            carouselView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            carouselView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -50),
             carouselView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             carouselView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             carouselView.heightAnchor.constraint(equalToConstant: 200),
@@ -106,13 +108,33 @@ class FavoritesViewController: UIViewController, UICollectionViewDelegate, UICol
 
     // MARK: - UITableView DataSource and Delegate
 
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return images.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3 // Ejemplo de 10 filas
+        return 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "customCell", for: indexPath) as! CustomTableViewCell
-        cell.configure(name: "Lorem Ipsum", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "customFavoritesCell", for: indexPath) as! CustomFavoritesTableViewCell
+        cell.configure(name: "Lorem Ipsum", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", imageName: images[indexPath.section])
+        cell.backgroundColor = .purple
+        cell.textLabel?.textColor = .white
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120 // Set a fixed height for each cell
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = .customBgPink
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 5 // Set the spacing between cells
     }
 }

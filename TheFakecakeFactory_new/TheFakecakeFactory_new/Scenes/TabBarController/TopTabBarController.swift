@@ -50,7 +50,7 @@ class TopTabBarController: UIViewController {
             tabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabBar.heightAnchor.constraint(equalToConstant: 50)
+            tabBar.heightAnchor.constraint(equalToConstant: 70)
         ])
     }
     

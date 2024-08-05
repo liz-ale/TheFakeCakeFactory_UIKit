@@ -24,6 +24,7 @@
 		187D71702C5D689F0059EE2B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D716F2C5D689F0059EE2B /* MapViewController.swift */; };
 		187D71722C5D77450059EE2B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D71712C5D77450059EE2B /* CustomTableViewCell.swift */; };
 		187D71752C5D8DA00059EE2B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D71742C5D8DA00059EE2B /* SignupViewController.swift */; };
+		18CAE4182C61345200B025B5 /* CustomFavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CAE4172C61345200B025B5 /* CustomFavoritesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		187D716F2C5D689F0059EE2B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		187D71712C5D77450059EE2B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		187D71742C5D8DA00059EE2B /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		18CAE4172C61345200B025B5 /* CustomFavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFavoritesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 			isa = PBXGroup;
 			children = (
 				187D71402C5D404C0059EE2B /* FavoritesViewController.swift */,
+				18CAE4172C61345200B025B5 /* CustomFavoritesTableViewCell.swift */,
 			);
 			path = Favorites;
 			sourceTree = "<group>";
@@ -280,6 +283,7 @@
 				187D71462C5D42100059EE2B /* LocationPermissionViewController.swift in Sources */,
 				187D713C2C5D40330059EE2B /* HomeViewController.swift in Sources */,
 				187D71482C5D424A0059EE2B /* DetailViewController.swift in Sources */,
+				18CAE4182C61345200B025B5 /* CustomFavoritesTableViewCell.swift in Sources */,
 				187D71722C5D77450059EE2B /* CustomTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
