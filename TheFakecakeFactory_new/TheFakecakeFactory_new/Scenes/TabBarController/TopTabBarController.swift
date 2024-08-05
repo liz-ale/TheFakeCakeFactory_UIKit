@@ -4,7 +4,6 @@
 //
 //  Created by lizbeth.alejandro on 02/08/24.
 //
-
 import UIKit
 
 class TopTabBarController: UIViewController {
@@ -31,12 +30,11 @@ class TopTabBarController: UIViewController {
         tabBar = UIStackView()
         tabBar.axis = .horizontal
         tabBar.distribution = .fillEqually
-        tabBar.backgroundColor = .white
         tabBar.translatesAutoresizingMaskIntoConstraints = false
         
-        let homeButton = createTabBarButton(title: "Home", image: UIImage(systemName: "house.fill"))
-        let favoritesButton = createTabBarButton(title: "Favoritos", image: UIImage(systemName: "heart.fill"))
-        let profileButton = createTabBarButton(title: "Perfil", image: UIImage(systemName: "person.circle"))
+        let homeButton = createTabBarButton(title: "Home", image: UIImage(systemName: "house.fill"), backgroundColor: .customTabItemPink1)
+        let favoritesButton = createTabBarButton(title: "Favoritos", image: UIImage(systemName: "heart.fill"), backgroundColor: .customTabItemPink2)
+        let profileButton = createTabBarButton(title: "Perfil", image: UIImage(systemName: "person.circle"), backgroundColor: .customTabItemPink3)
         
         homeButton.addTarget(self, action: #selector(homeButtonTapped), for: .touchUpInside)
         favoritesButton.addTarget(self, action: #selector(favoritesButtonTapped), for: .touchUpInside)
@@ -66,7 +64,6 @@ class TopTabBarController: UIViewController {
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            containerView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
@@ -74,13 +71,21 @@ class TopTabBarController: UIViewController {
         viewControllers = [homeVC, favoritesVC, profileVC]
     }
     
-    private func createTabBarButton(title: String, image: UIImage?) -> UIButton {
+    private func createTabBarButton(title: String, image: UIImage?, backgroundColor: UIColor) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setImage(image, for: .normal)
-        button.tintColor = .systemPurple
+        button.tintColor = .black
         button.imageView?.contentMode = .scaleAspectFit
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12) // Ajustar el tamaño de la fuente si es necesario
+        button.contentVerticalAlignment = .center
+        button.contentHorizontalAlignment = .center
+        button.backgroundColor = backgroundColor
+        
+        let spacing: CGFloat = 6.0 // Espacio entre la imagen y el título
+        button.titleEdgeInsets = UIEdgeInsets(top: spacing, left: -image!.size.width, bottom: -image!.size.height, right: 0)
+        button.imageEdgeInsets = UIEdgeInsets(top: -button.titleLabel!.intrinsicContentSize.height, left: 0, bottom: 0, right: -button.titleLabel!.intrinsicContentSize.width)
+        
         return button
     }
     

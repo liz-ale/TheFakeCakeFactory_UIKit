@@ -23,7 +23,9 @@ class HomeViewController: UIViewController {
         button.layer.borderColor = UIColor.systemPurple.cgColor
         button.layer.borderWidth = 1
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(systemName: "mappin"), for: .normal)
+        button.backgroundColor = .customTabItemPink1
+        button.setImage(UIImage(systemName: "map.fill"), for: .normal)
+        button.tintColor = .systemPurple
         //button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
         return button
     }()
@@ -37,6 +39,7 @@ class HomeViewController: UIViewController {
         let itemSize = (UIScreen.main.bounds.width - 40) / 3
         layout.itemSize = CGSize(width: itemSize, height: itemSize)
         gridView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        gridView.backgroundColor = .customBgPink
         
         super.init(nibName: nil, bundle: nil)
         
@@ -51,7 +54,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .customBgPink
         
         carouselImages = [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!]
         gridImages = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
@@ -79,7 +82,7 @@ class HomeViewController: UIViewController {
             carousel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             carousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             carousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            carousel.heightAnchor.constraint(equalToConstant: 150),
+            carousel.heightAnchor.constraint(equalToConstant: 200),
             
             gridView.topAnchor.constraint(equalTo: carousel.bottomAnchor, constant: 20),
             gridView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
@@ -93,7 +96,7 @@ class HomeViewController: UIViewController {
             
             visitButton.topAnchor.constraint(equalTo: secondaryCarousel.bottomAnchor, constant: 20),
             visitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            visitButton.widthAnchor.constraint(equalToConstant: 250),
+            visitButton.widthAnchor.constraint(equalToConstant: 300),
             visitButton.heightAnchor.constraint(equalToConstant: 60),
             visitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
@@ -102,10 +105,19 @@ class HomeViewController: UIViewController {
     @objc private func visitButtonTapped() {
         let locationVC = LocationPermissionsViewController()
         locationVC.modalPresentationStyle = .pageSheet
+        
+        let smallDetentId = UISheetPresentationController.Detent.Identifier("small")
+        let smallDetent = UISheetPresentationController.Detent.custom(identifier: smallDetentId) { context in
+            return 250
+        }
+        
         if let sheet = locationVC.sheetPresentationController {
-            sheet.detents = [.medium()]
+            //sheet.detents = [.medium()]
+            sheet.detents = [smallDetent]
+            sheet.prefersGrabberVisible = true
         }
         present(locationVC, animated: true, completion: nil)
+        
     }
 }
 
