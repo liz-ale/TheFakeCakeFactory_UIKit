@@ -92,7 +92,7 @@ class HomeViewController: UIViewController {
             secondaryCarousel.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 20),
             secondaryCarousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             secondaryCarousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            secondaryCarousel.heightAnchor.constraint(equalToConstant: 100),
+            secondaryCarousel.heightAnchor.constraint(equalToConstant: 130),
             
             visitButton.topAnchor.constraint(equalTo: secondaryCarousel.bottomAnchor, constant: 20),
             visitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
