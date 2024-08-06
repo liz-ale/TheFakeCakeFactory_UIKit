@@ -28,12 +28,12 @@ class HomeViewController: UIViewController {
         
         let button = UIButton(configuration: config)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(.systemPurple, for: .normal)
+        button.setTitleColor(.customBgPurple, for: .normal)
         button.layer.cornerRadius = 30
-        button.layer.borderColor = UIColor.systemPurple.cgColor
+        button.layer.borderColor = UIColor.customBgPurple.cgColor
         button.layer.borderWidth = 1
-        button.backgroundColor = .customTabItemPink1
-        button.tintColor = .systemPurple
+        button.backgroundColor = .customBtn
+        button.tintColor = .customBgPurple
         
         return button
     }()
