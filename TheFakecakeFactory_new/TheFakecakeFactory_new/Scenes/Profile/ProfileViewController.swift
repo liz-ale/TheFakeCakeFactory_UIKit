@@ -13,8 +13,8 @@ class ProfileViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 20
-        view.layer.borderColor = UIColor.customGray.cgColor
-       view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.gray.cgColor
+        view.layer.borderWidth = 1
         view.backgroundColor = .white
         return view
     }()
@@ -26,9 +26,10 @@ class ProfileViewController: UIViewController {
         imageView.widthAnchor.constraint(equalToConstant: 114).isActive = true
         imageView.heightAnchor.constraint(equalToConstant: 114).isActive = true
         imageView.layer.cornerRadius = 57
-        imageView.layer.borderColor = UIColor.customGray.cgColor
+        imageView.layer.borderColor = UIColor.gray.cgColor
         imageView.layer.borderWidth = 1
         imageView.clipsToBounds = true
+        imageView.isUserInteractionEnabled = true // Habilitar la interacción del usuario
         return imageView
     }()
     
@@ -41,7 +42,7 @@ class ProfileViewController: UIViewController {
     private let separatorLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .darkGray
+        view.backgroundColor = .customGrayLight
         return view
     }()
     
@@ -50,7 +51,7 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Editar perfil"
-        label.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 200).isActive = true
         label.heightAnchor.constraint(equalToConstant: 21).isActive = true
         return label
     }()
@@ -65,10 +66,11 @@ class ProfileViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Actualizar", for: .normal)
         button.backgroundColor = .white
-        button.layer.cornerRadius = 10
+        button.tintColor = .customGray
+        button.layer.cornerRadius = 20
         button.layer.borderColor = UIColor.gray.cgColor
         button.layer.borderWidth = 1
-        button.widthAnchor.constraint(equalToConstant: 141).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 130).isActive = true
         button.heightAnchor.constraint(equalToConstant: 47).isActive = true
         return button
     }()
@@ -77,6 +79,10 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .customBgPink
         setupView()
+        
+        // Añadir tap gesture recognizer a la imagen de perfil
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
+        profileImageView.addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func setupView() {
@@ -103,13 +109,9 @@ class ProfileViewController: UIViewController {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             // Constraints for containerView
-            
-//            containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             containerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 14),
-            containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 14),
-            containerView.widthAnchor.constraint(equalToConstant: 300),
+            containerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 15),
+            containerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -15),
             containerView.heightAnchor.constraint(equalToConstant: 584),
             
             // Constraints for profileImageView
@@ -141,7 +143,7 @@ class ProfileViewController: UIViewController {
             separatorLine.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 20),
             separatorLine.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             separatorLine.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            separatorLine.heightAnchor.constraint(equalToConstant: 2),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1),
             
             // Constraints for editProfileLabel
             editProfileLabel.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 20),
@@ -170,7 +172,7 @@ class ProfileViewController: UIViewController {
             
             // Constraints for updateButton
             updateButton.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 20),
-            updateButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 20)
+            updateButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20)
         ])
     }
     
@@ -191,5 +193,23 @@ class ProfileViewController: UIViewController {
         textField.widthAnchor.constraint(equalToConstant: 352).isActive = true
         textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return textField
+    }
+    
+    @objc private func profileImageTapped() {
+      
+        let locationVC = CameraGalleryViewController()
+        locationVC.modalPresentationStyle = .pageSheet
+        
+        let smallDetentId = UISheetPresentationController.Detent.Identifier("small")
+        let smallDetent = UISheetPresentationController.Detent.custom(identifier: smallDetentId) { context in
+            return 150
+        }
+        
+        if let sheet = locationVC.sheetPresentationController {
+            //sheet.detents = [.medium()]
+            sheet.detents = [smallDetent]
+            sheet.prefersGrabberVisible = true
+        }
+        present(locationVC, animated: true, completion: nil)
     }
 }

@@ -24,6 +24,7 @@
 		187D71702C5D689F0059EE2B /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D716F2C5D689F0059EE2B /* MapViewController.swift */; };
 		187D71722C5D77450059EE2B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D71712C5D77450059EE2B /* CustomTableViewCell.swift */; };
 		187D71752C5D8DA00059EE2B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D71742C5D8DA00059EE2B /* SignupViewController.swift */; };
+		18A60C502C61813E006388FB /* CameraGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */; };
 		18CAE4182C61345200B025B5 /* CustomFavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CAE4172C61345200B025B5 /* CustomFavoritesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		187D716F2C5D689F0059EE2B /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		187D71712C5D77450059EE2B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		187D71742C5D8DA00059EE2B /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraGalleryViewController.swift; sourceTree = "<group>"; };
 		18CAE4172C61345200B025B5 /* CustomFavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFavoritesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				187D71332C5D3F800059EE2B /* TabBarController */,
 				187D713A2C5D3FFE0059EE2B /* DetailCake */,
 				187D71392C5D3FF60059EE2B /* Location */,
+				18A60C4E2C6180AF006388FB /* CameraGallery */,
 				187D71382C5D3FF10059EE2B /* Profile */,
 				187D71372C5D3FE50059EE2B /* Favorites */,
 				187D71362C5D3FE10059EE2B /* Home */,
@@ -197,6 +200,14 @@
 				187D71742C5D8DA00059EE2B /* SignupViewController.swift */,
 			);
 			path = Signup;
+			sourceTree = "<group>";
+		};
+		18A60C4E2C6180AF006388FB /* CameraGallery */ = {
+			isa = PBXGroup;
+			children = (
+				18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */,
+			);
+			path = CameraGallery;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +293,7 @@
 				187D71412C5D404C0059EE2B /* FavoritesViewController.swift in Sources */,
 				187D71462C5D42100059EE2B /* LocationPermissionViewController.swift in Sources */,
 				187D713C2C5D40330059EE2B /* HomeViewController.swift in Sources */,
+				18A60C502C61813E006388FB /* CameraGalleryViewController.swift in Sources */,
 				187D71482C5D424A0059EE2B /* DetailViewController.swift in Sources */,
 				18CAE4182C61345200B025B5 /* CustomFavoritesTableViewCell.swift in Sources */,
 				187D71722C5D77450059EE2B /* CustomTableViewCell.swift in Sources */,

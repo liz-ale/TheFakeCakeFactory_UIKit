@@ -11,7 +11,8 @@ class GridCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = (UIScreen.main.bounds.width - 40) / 6
+        //imageView.layer.cornerRadius = (UIScreen.main.bounds.width - 40) / 6
+        imageView.layer.cornerRadius = 50
         imageView.layer.borderColor = UIColor.systemPurple.cgColor
         imageView.layer.borderWidth = 2
         imageView.clipsToBounds = true

@@ -15,29 +15,38 @@ class HomeViewController: UIViewController {
     private let gridView: UICollectionView
     private let secondaryCarousel = CarouselView()
     
-    private let visitButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Ven y visítanos", for: .normal)
+    private lazy var visitButton: UIButton = {
+        var config = UIButton.Configuration.plain()
+        config.title = "Ven y visítanos"
+        if let image = UIImage(named: "mapis") {
+            config.image = resizeImage(image: image, targetSize: CGSize(width: 30, height: 30))
+        }
+        
+        config.imagePadding = 10
+        config.imagePlacement = .leading
+        config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(scale: .medium)
+        
+        let button = UIButton(configuration: config)
+        button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.systemPurple, for: .normal)
         button.layer.cornerRadius = 30
         button.layer.borderColor = UIColor.systemPurple.cgColor
         button.layer.borderWidth = 1
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .customTabItemPink1
-        button.setImage(UIImage(systemName: "map.fill"), for: .normal)
         button.tintColor = .systemPurple
-        //button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -10, bottom: 0, right: 0)
+        
         return button
     }()
     
     init() {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 50, height: 50)
-        layout.minimumInteritemSpacing = 10
-        layout.minimumLineSpacing = 5
+        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.minimumInteritemSpacing = 20
+        layout.minimumLineSpacing = 30
+        
         //layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        let itemSize = (UIScreen.main.bounds.width - 40) / 3
-        layout.itemSize = CGSize(width: itemSize, height: itemSize)
+//        let itemSize = (UIScreen.main.bounds.width - 40) / 3
+//        layout.itemSize = CGSize(width: itemSize, height: itemSize)
         gridView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         gridView.backgroundColor = .customBgPink
         
@@ -144,4 +153,29 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return CGSize(width: width, height: width)
         
     }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+            let size = image.size
+            
+            let widthRatio  = targetSize.width  / size.width
+            let heightRatio = targetSize.height / size.height
+            
+            // Calcular el nuevo tamaño
+            var newSize: CGSize
+            if(widthRatio > heightRatio) {
+                newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+            } else {
+                newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
+            }
+            
+            // Redimensionar la imagen
+            let rect = CGRect(origin: .zero, size: newSize)
+            
+            UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+            image.draw(in: rect)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            return newImage!
+        }
 }
