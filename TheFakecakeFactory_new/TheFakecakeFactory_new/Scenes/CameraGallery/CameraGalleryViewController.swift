@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CameraGalleryViewController: UIViewController {
+class CameraGalleryViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     private let cameraButton: UIButton = {
         let button = UIButton(type: .system)
@@ -49,10 +49,13 @@ class CameraGalleryViewController: UIViewController {
         return label
     }()
     
+    var profileImageView: UIImageView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Foto de Perfil"
         setupView()
+        galleryButton.addTarget(self, action: #selector(galleryButtonTapped), for: .touchUpInside)
     }
     
     private func setupView() {
@@ -87,8 +90,27 @@ class CameraGalleryViewController: UIViewController {
             galleryLabel.centerXAnchor.constraint(equalTo: galleryButton.centerXAnchor)
         ])
     }
+    
+    @objc private func galleryButtonTapped() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .photoLibrary
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    // UIImagePickerControllerDelegate methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        if let selectedImage = info[.originalImage] as? UIImage {
+            profileImageView?.image = selectedImage
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
 }
 
-// Uso de SFSymbols para los iconos de los botones
-// Nota: Asegúrate de usar SFSymbols o de añadir tus propios iconos de cámara e imagen a tu proyecto
+
 

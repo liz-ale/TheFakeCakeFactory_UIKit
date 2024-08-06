@@ -120,59 +120,47 @@ class ProfileViewController: UIViewController {
             
             // Constraints for labels aligned with profileImageView
             nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
-            nameLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            nameLabel.heightAnchor.constraint(equalToConstant: 40),
+            nameLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10),
             
             emailLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
-            emailLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
-            emailLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            emailLabel.heightAnchor.constraint(equalToConstant: 40),
+            emailLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10),
             
             phoneLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 10),
-            phoneLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
-            phoneLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            phoneLabel.heightAnchor.constraint(equalToConstant: 40),
+            phoneLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10),
             
             addressLabel.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 10),
-            addressLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 20),
-            addressLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            addressLabel.heightAnchor.constraint(equalToConstant: 40),
+            addressLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 10),
             
             // Constraints for separatorLine
-            separatorLine.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 20),
-            separatorLine.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            separatorLine.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
+            separatorLine.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 15),
+            separatorLine.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            separatorLine.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: 1),
             
             // Constraints for editProfileLabel
             editProfileLabel.topAnchor.constraint(equalTo: separatorLine.bottomAnchor, constant: 20),
-            editProfileLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
+            editProfileLabel.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             
-            // Constraints for text fields
+            // Constraints for textFields
             nameTextField.topAnchor.constraint(equalTo: editProfileLabel.bottomAnchor, constant: 10),
             nameTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             nameTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            nameTextField.heightAnchor.constraint(equalToConstant: 40),
             
             emailTextField.topAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 10),
             emailTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             emailTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            emailTextField.heightAnchor.constraint(equalToConstant: 40),
             
             phoneTextField.topAnchor.constraint(equalTo: emailTextField.bottomAnchor, constant: 10),
             phoneTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             phoneTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            phoneTextField.heightAnchor.constraint(equalToConstant: 40),
             
             addressTextField.topAnchor.constraint(equalTo: phoneTextField.bottomAnchor, constant: 10),
             addressTextField.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             addressTextField.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            addressTextField.heightAnchor.constraint(equalToConstant: 40),
             
             // Constraints for updateButton
             updateButton.topAnchor.constraint(equalTo: addressTextField.bottomAnchor, constant: 20),
-            updateButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20)
+            updateButton.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
         ])
     }
     
@@ -180,8 +168,6 @@ class ProfileViewController: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
-        label.widthAnchor.constraint(equalToConstant: 352).isActive = true
-        label.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return label
     }
     
@@ -190,13 +176,10 @@ class ProfileViewController: UIViewController {
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.placeholder = placeholder
         textField.borderStyle = .roundedRect
-        textField.widthAnchor.constraint(equalToConstant: 352).isActive = true
-        textField.heightAnchor.constraint(equalToConstant: 40).isActive = true
         return textField
     }
     
     @objc private func profileImageTapped() {
-      
         let locationVC = CameraGalleryViewController()
         locationVC.modalPresentationStyle = .pageSheet
         

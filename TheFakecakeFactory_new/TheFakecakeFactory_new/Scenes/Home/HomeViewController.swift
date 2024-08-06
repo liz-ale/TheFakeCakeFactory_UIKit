@@ -44,6 +44,7 @@ class HomeViewController: UIViewController {
         layout.minimumInteritemSpacing = 20
         layout.minimumLineSpacing = 30
         
+        
         //layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
 //        let itemSize = (UIScreen.main.bounds.width - 40) / 3
 //        layout.itemSize = CGSize(width: itemSize, height: itemSize)
