@@ -56,6 +56,7 @@ class CameraGalleryViewController: UIViewController, UIImagePickerControllerDele
         title = "Foto de Perfil"
         setupView()
         galleryButton.addTarget(self, action: #selector(galleryButtonTapped), for: .touchUpInside)
+        cameraButton.addTarget(self, action: #selector(cameraButtonTapped), for: .touchUpInside)
     }
     
     private func setupView() {
@@ -98,6 +99,21 @@ class CameraGalleryViewController: UIViewController, UIImagePickerControllerDele
         present(imagePickerController, animated: true, completion: nil)
     }
     
+    @objc private func cameraButtonTapped() {
+        guard UIImagePickerController.isSourceTypeAvailable(.camera) else {
+            // Mostrar una alerta si la cámara no está disponible
+            let alert = UIAlertController(title: "Error", message: "La cámara no está disponible en este dispositivo.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+            return
+        }
+        
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .camera
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
     // UIImagePickerControllerDelegate methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)
@@ -111,6 +127,3 @@ class CameraGalleryViewController: UIViewController, UIImagePickerControllerDele
         picker.dismiss(animated: true, completion: nil)
     }
 }
-
-
-
