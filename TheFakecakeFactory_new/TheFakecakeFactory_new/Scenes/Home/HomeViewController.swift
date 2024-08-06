@@ -4,11 +4,24 @@
 //
 //  Created by lizbeth.alejandro on 02/08/24.
 //
+
 import UIKit
 
 class HomeViewController: UIViewController {
+    
+    private lazy var paginationManager: HorizontalPaginationManager = {
+        let manager = HorizontalPaginationManager(scrollView: self.gridView)
+        manager.delegate = self
+        return manager
+    }()
+    
+    private var isDragging: Bool {
+        return self.gridView.isDragging
+    }
+    
     private var carouselImages: [UIImage] = []
     private var gridImages: [UIImage] = []
+    private var gridImagesPagination: [UIImage] = []
     private var secondaryCarouselImages: [UIImage] = []
     
     private let carousel = CarouselView()
@@ -22,7 +35,7 @@ class HomeViewController: UIViewController {
             config.image = resizeImage(image: image, targetSize: CGSize(width: 30, height: 30))
         }
         
-        config.imagePadding = 10
+        config.imagePadding = 20
         config.imagePlacement = .leading
         config.preferredSymbolConfigurationForImage = UIImage.SymbolConfiguration(scale: .medium)
         
@@ -53,9 +66,12 @@ class HomeViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
+        gridView.alwaysBounceHorizontal = true
         gridView.dataSource = self
         gridView.delegate = self
-        gridView.register(GridCell.self, forCellWithReuseIdentifier: "GridCell")
+        //gridView.register(GridCell.self, forCellWithReuseIdentifier: "GridCell")
+        gridView.register(HorizontalCollectionCell.self, forCellWithReuseIdentifier: "HorizontalCollectionCell")
+        
     }
     
     required init?(coder: NSCoder) {
@@ -67,7 +83,8 @@ class HomeViewController: UIViewController {
         view.backgroundColor = .customBgPink
         
         carouselImages = [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!]
-        gridImages = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
+        gridImages = [UIImage(named: "f5")!, UIImage(named: "f6")!, UIImage(named: "f3")!, UIImage(named: "f2")!, UIImage(named: "f1")!, UIImage(named: "f4")!]
+        gridImagesPagination = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
         secondaryCarouselImages = [UIImage(named: "sp1")!, UIImage(named: "sp2")!, UIImage(named: "sp3")!]
         
         carousel.setImages(carouselImages)
@@ -81,6 +98,10 @@ class HomeViewController: UIViewController {
         setupConstraints()
         
         visitButton.addTarget(self, action: #selector(visitButtonTapped), for: .touchUpInside)
+        
+        //self.setupCollectionView()
+        setupPagination()
+        fetchItems()
     }
     
     private func setupConstraints() {
@@ -106,7 +127,7 @@ class HomeViewController: UIViewController {
             
             visitButton.topAnchor.constraint(equalTo: secondaryCarousel.bottomAnchor, constant: 20),
             visitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            visitButton.widthAnchor.constraint(equalToConstant: 300),
+            visitButton.widthAnchor.constraint(equalToConstant: 350),
             visitButton.heightAnchor.constraint(equalToConstant: 60),
             visitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
@@ -137,9 +158,15 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GridCell", for: indexPath) as! GridCell
-        cell.configure(with: gridImages[indexPath.item])
-        return cell
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GridCell", for: indexPath) as! GridCell
+//        cell.configure(with: gridImages[indexPath.item])
+//        return cell
+        let cell = collectionView.dequeueReusableCell(
+              withReuseIdentifier: "HorizontalCollectionCell",
+              for: indexPath
+           ) as! HorizontalCollectionCell
+           cell.update(with: gridImages[indexPath.item])
+           return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -179,4 +206,41 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             
             return newImage!
         }
+}
+
+
+extension HomeViewController: HorizontalPaginationManagerDelegate {
+    
+    private func setupPagination() {
+        self.paginationManager.refreshViewColor = .clear
+        self.paginationManager.loaderColor = .white
+    }
+    
+    private func fetchItems() {
+        self.paginationManager.initialLoad()
+    }
+    
+    func refreshAll(completion: @escaping (Bool) -> Void) {
+        delay(5.0) {
+            self.gridImages = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
+            self.gridView.reloadData()
+            completion(true)
+        }
+    }
+    
+    func loadMore(completion: @escaping (Bool) -> Void) {
+        delay(5.0) {
+            self.gridImages.append(contentsOf: [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!, UIImage(named: "f5")!, UIImage(named: "f6")!])
+            self.gridView.reloadData()
+            completion(true)
+        }
+    }
+    
+}
+public func delay(_ delay: Double, closure: @escaping () -> Void) {
+    let deadline = DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter(
+        deadline: deadline,
+        execute: closure
+    )
 }

@@ -1,13 +1,13 @@
 //
-//  GridCell.swift
+//  HorizontalColectionCell.swift
 //  TheFakecakeFactory_new
 //
-//  Created by lizbeth.alejandro on 02/08/24.
+//  Created by lizbeth.alejandro on 06/08/24.
 //
 
 import UIKit
 
-class GridCell: UICollectionViewCell {
+class HorizontalCollectionCell: UICollectionViewCell {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -29,7 +29,13 @@ class GridCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with image: UIImage) {
+    func update(with image: UIImage) {
         imageView.image = image
     }
+    
+//    func update(index: Int) {
+//       self.titleLabel.text = "\(index) Value"
+//       self.backgroundColor = index % 2 == 0 ? .lightGray : .lightText
+//    }
+
 }

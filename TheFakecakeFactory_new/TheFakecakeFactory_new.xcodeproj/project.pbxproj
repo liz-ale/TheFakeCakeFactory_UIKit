@@ -25,6 +25,8 @@
 		187D71722C5D77450059EE2B /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D71712C5D77450059EE2B /* CustomTableViewCell.swift */; };
 		187D71752C5D8DA00059EE2B /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187D71742C5D8DA00059EE2B /* SignupViewController.swift */; };
 		18A60C502C61813E006388FB /* CameraGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */; };
+		18A60C602C62D00E006388FB /* HorizontalPaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C5F2C62D00E006388FB /* HorizontalPaginationManager.swift */; };
+		18A60C622C62D609006388FB /* HorizontalColectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C612C62D609006388FB /* HorizontalColectionCell.swift */; };
 		18CAE4182C61345200B025B5 /* CustomFavoritesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CAE4172C61345200B025B5 /* CustomFavoritesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -49,6 +51,8 @@
 		187D71712C5D77450059EE2B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		187D71742C5D8DA00059EE2B /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraGalleryViewController.swift; sourceTree = "<group>"; };
+		18A60C5F2C62D00E006388FB /* HorizontalPaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPaginationManager.swift; sourceTree = "<group>"; };
+		18A60C612C62D609006388FB /* HorizontalColectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalColectionCell.swift; sourceTree = "<group>"; };
 		18CAE4172C61345200B025B5 /* CustomFavoritesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFavoritesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +186,8 @@
 				187D716A2C5D67BE0059EE2B /* CarouselView.swift */,
 				187D716C2C5D67F60059EE2B /* GridCell.swift */,
 				187D71712C5D77450059EE2B /* CustomTableViewCell.swift */,
+				18A60C5F2C62D00E006388FB /* HorizontalPaginationManager.swift */,
+				18A60C612C62D609006388FB /* HorizontalColectionCell.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -287,7 +293,9 @@
 				187D711F2C5D3F5E0059EE2B /* AppDelegate.swift in Sources */,
 				187D71212C5D3F5E0059EE2B /* SceneDelegate.swift in Sources */,
 				187D713E2C5D403E0059EE2B /* LoginViewController.swift in Sources */,
+				18A60C622C62D609006388FB /* HorizontalColectionCell.swift in Sources */,
 				187D71442C5D40620059EE2B /* ProfileViewController.swift in Sources */,
+				18A60C602C62D00E006388FB /* HorizontalPaginationManager.swift in Sources */,
 				187D71702C5D689F0059EE2B /* MapViewController.swift in Sources */,
 				187D71752C5D8DA00059EE2B /* SignupViewController.swift in Sources */,
 				187D71412C5D404C0059EE2B /* FavoritesViewController.swift in Sources */,
