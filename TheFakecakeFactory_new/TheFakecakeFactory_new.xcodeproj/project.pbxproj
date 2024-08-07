@@ -90,8 +90,8 @@
 		187D711D2C5D3F5E0059EE2B /* TheFakecakeFactory_new */ = {
 			isa = PBXGroup;
 			children = (
-				18A60C702C63E7A2006388FB /* Storage */,
 				187D71322C5D3F650059EE2B /* App */,
+				18A60C702C63E7A2006388FB /* Storage */,
 				187D71352C5D3FD60059EE2B /* Scenes */,
 				187D712C2C5D3F5F0059EE2B /* Info.plist */,
 			);
