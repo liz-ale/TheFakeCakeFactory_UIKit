@@ -102,6 +102,7 @@ class ProfileViewController: UIViewController {
         button.layer.borderWidth = 1
         button.widthAnchor.constraint(equalToConstant: 130).isActive = true
         button.heightAnchor.constraint(equalToConstant: 47).isActive = true
+        button.addTarget(ProfileViewController.self, action: #selector(updateButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -228,6 +229,35 @@ class ProfileViewController: UIViewController {
         present(locationVC, animated: true, completion: nil)
     }
     
+    @objc private func updateButtonTapped() {
+        guard let name = nameTextField.text, !name.isEmpty,
+              let email = emailTextField.text, !email.isEmpty,
+              let address = addressTextField.text, !address.isEmpty,
+              let phone = phoneTextField.text, !phone.isEmpty else {
+            // Show alert if any field is empty
+            showAlert(message: "Por favor, complete todos los campos.")
+            return
+        }
+        
+        // Actualizar los datos del usuario en CoreData
+        storageProvider.updateUser(name: name, email: email, address: address, phone: phone)
+        
+        // Actualizar las etiquetas con los nuevos datos
+        nameLabel.text = "\(name)"
+        emailLabel.text = " \(email)"
+        addressLabel.text = " \(address)"
+        phoneLabel.text = " \(phone)"
+        
+        // Mostrar alerta de éxito
+        showAlert(message: "Datos actualizados exitosamente.")
+    }
+        
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
     private func loadUserData() {
 
         guard let user = self.storageProvider.currentUser else { return }
@@ -235,5 +265,11 @@ class ProfileViewController: UIViewController {
         emailLabel.text = "\(user.email ?? "Email")"
         phoneLabel.text = "\(user.phone ?? "Telefóno")"
         addressLabel.text = "\(user.address ?? "Dirección")"
+        
+        // Rellenar los campos de texto con los datos actuales del usuario
+        nameTextField.text = user.name
+        emailTextField.text = user.email
+        phoneTextField.text = user.phone
+        addressTextField.text = user.address
     }
 }

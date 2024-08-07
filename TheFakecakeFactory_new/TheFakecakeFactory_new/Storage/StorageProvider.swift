@@ -80,17 +80,20 @@ extension StorageProvider {
         }
     }
     
-    func editPassword(newPassword: String) {
-//        let user =
-//        user.password = newPassword
-//
-//        do {
-//            try persistenceContainer.viewContext.save()
-//            print("Password changed suceessfully")
-//
-//        } catch {
-//            print("Failed to change the ppaswword \(error)")
-//        }
+    func updateUser(name: String, email: String, address: String, phone: String) {
+        if let user = currentUser {
+            user.name = name
+            user.email = email
+            user.address = address
+            user.phone = phone
+            
+            do {
+                try persistenceContainer.viewContext.save()
+                print("User updated successfully")
+            } catch {
+                print("Failed to update \(error)")
+            }
+        }
     }
 }
 
