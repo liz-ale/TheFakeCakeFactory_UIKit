@@ -80,6 +80,7 @@ class DetailViewController: UIViewController {
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = UIFont.systemFont(ofSize: 14)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.textColor = .white
         
         containerView.addSubview(descriptionLabel)
         
@@ -99,7 +100,7 @@ class DetailViewController: UIViewController {
             favoriteButton.widthAnchor.constraint(equalToConstant: 30),
             favoriteButton.heightAnchor.constraint(equalToConstant: 30),
             
-            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20),
+            descriptionLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10),
             descriptionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
             descriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20)
