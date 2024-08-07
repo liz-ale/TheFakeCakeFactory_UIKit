@@ -113,7 +113,7 @@ class LoginViewController: UIViewController {
         guard let validUser = storageProvider.validUser(email: emailTextField.text!, password: passwordTextField.text!) else  { return }
         
         if validUser {
-            let topTabBarViewController = TopTabBarController()
+            let topTabBarViewController = TopTabBarController(storageProvider: storageProvider)
             
             //self.navigationController?.pushViewController(homeViewController, animated: true)
             navigationController?.setViewControllers([topTabBarViewController], animated: true)

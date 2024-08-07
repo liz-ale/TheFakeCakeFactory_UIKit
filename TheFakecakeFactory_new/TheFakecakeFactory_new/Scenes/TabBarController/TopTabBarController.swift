@@ -10,9 +10,20 @@ class TopTabBarController: UIViewController {
     private var tabBar: UIStackView!
     private var containerView: UIView!
     
+    var storageProvider: StorageProvider
+    
+    init(storageProvider: StorageProvider) {
+        self.storageProvider = storageProvider
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let homeVC = UINavigationController(rootViewController: HomeViewController())
     private let favoritesVC = UINavigationController(rootViewController: FavoritesViewController())
-    private let profileVC = UINavigationController(rootViewController: ProfileViewController())
+    lazy var profileVC = UINavigationController(rootViewController: ProfileViewController(storageProvider: storageProvider))
     
     private var viewControllers: [UIViewController]!
     

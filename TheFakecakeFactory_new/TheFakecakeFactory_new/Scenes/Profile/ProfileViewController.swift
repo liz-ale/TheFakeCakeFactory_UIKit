@@ -9,6 +9,17 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
+    private let storageProvider: StorageProvider
+    
+    init(storageProvider: StorageProvider) {
+        self.storageProvider = storageProvider
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     private let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,10 +44,29 @@ class ProfileViewController: UIViewController {
         return imageView
     }()
     
-    private let nameLabel: UILabel = createLabel(text: "Nombre")
-    private let emailLabel: UILabel = createLabel(text: "Email")
-    private let phoneLabel: UILabel = createLabel(text: "Phone")
-    private let addressLabel: UILabel = createLabel(text: "Address")
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let emailLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let phoneLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let addressLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     // Línea divisoria
     private let separatorLine: UIView = {
@@ -83,6 +113,8 @@ class ProfileViewController: UIViewController {
         // Añadir tap gesture recognizer a la imagen de perfil
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         profileImageView.addGestureRecognizer(tapGestureRecognizer)
+        
+        loadUserData()
     }
     
     private func setupView() {
@@ -194,5 +226,14 @@ class ProfileViewController: UIViewController {
             sheet.prefersGrabberVisible = true
         }
         present(locationVC, animated: true, completion: nil)
+    }
+    
+    private func loadUserData() {
+
+        guard let user = self.storageProvider.currentUser else { return }
+        nameLabel.text = "\(user.name ?? "Nombre")"
+        emailLabel.text = "\(user.email ?? "Email")"
+        phoneLabel.text = "\(user.phone ?? "Telefóno")"
+        addressLabel.text = "\(user.address ?? "Dirección")"
     }
 }
