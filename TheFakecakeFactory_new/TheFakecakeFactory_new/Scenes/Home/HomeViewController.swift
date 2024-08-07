@@ -19,13 +19,26 @@ class HomeViewController: UIViewController {
         return self.gridView.isDragging
     }
     
+    private let gridView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 100, height: 100)
+        layout.minimumInteritemSpacing = 12
+        layout.minimumLineSpacing = 20
+        layout.scrollDirection = .horizontal
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        //register cells
+        collectionView.backgroundColor = .customBgPink
+        
+        return collectionView
+    }()
+    
     private var carouselImages: [UIImage] = []
     private var gridImages: [UIImage] = []
     private var gridImagesPagination: [UIImage] = []
     private var secondaryCarouselImages: [UIImage] = []
     
     private let carousel = CarouselView()
-    private let gridView: UICollectionView
     private let secondaryCarousel = CarouselView()
     
     private lazy var visitButton: UIButton = {
@@ -52,26 +65,7 @@ class HomeViewController: UIViewController {
     }()
     
     init() {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
-        layout.minimumInteritemSpacing = 20
-        layout.minimumLineSpacing = 30
-        
-        
-        //layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-//        let itemSize = (UIScreen.main.bounds.width - 40) / 3
-//        layout.itemSize = CGSize(width: itemSize, height: itemSize)
-        gridView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        gridView.backgroundColor = .customBgPink
-        
         super.init(nibName: nil, bundle: nil)
-        
-        gridView.alwaysBounceHorizontal = true
-        gridView.dataSource = self
-        gridView.delegate = self
-        //gridView.register(GridCell.self, forCellWithReuseIdentifier: "GridCell")
-        gridView.register(HorizontalCollectionCell.self, forCellWithReuseIdentifier: "HorizontalCollectionCell")
-        
     }
     
     required init?(coder: NSCoder) {
@@ -82,8 +76,15 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .customBgPink
         
+        gridView.alwaysBounceHorizontal = true
+        gridView.dataSource = self
+        gridView.delegate = self
+        //gridView.register(GridCell.self, forCellWithReuseIdentifier: "GridCell")
+        gridView.register(HorizontalCollectionCell.self, forCellWithReuseIdentifier: "HorizontalCollectionCell")
+        
+        
         carouselImages = [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!]
-        gridImages = [UIImage(named: "f5")!, UIImage(named: "f6")!, UIImage(named: "f3")!, UIImage(named: "f2")!, UIImage(named: "f1")!, UIImage(named: "f4")!]
+        gridImages = [UIImage(named: "f5")!, UIImage(named: "f6")!, UIImage(named: "f3")!, UIImage(named: "f2")!, UIImage(named: "f1")!, UIImage(named: "f4")!, UIImage(named: "f2")!, UIImage(named: "f1")!, UIImage(named: "f4")!]
         gridImagesPagination = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
         secondaryCarouselImages = [UIImage(named: "sp1")!, UIImage(named: "sp2")!, UIImage(named: "sp3")!]
         
@@ -116,8 +117,8 @@ class HomeViewController: UIViewController {
             carousel.heightAnchor.constraint(equalToConstant: 200),
             
             gridView.topAnchor.constraint(equalTo: carousel.bottomAnchor, constant: 20),
-            gridView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            gridView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+            gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             gridView.heightAnchor.constraint(equalToConstant: 300),
             
             secondaryCarousel.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 20),
@@ -183,29 +184,29 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-            let size = image.size
-            
-            let widthRatio  = targetSize.width  / size.width
-            let heightRatio = targetSize.height / size.height
-            
-            // Calcular el nuevo tamaño
-            var newSize: CGSize
-            if(widthRatio > heightRatio) {
-                newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-            } else {
-                newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
-            }
-            
-            // Redimensionar la imagen
-            let rect = CGRect(origin: .zero, size: newSize)
-            
-            UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-            image.draw(in: rect)
-            let newImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
-            return newImage!
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Calcular el nuevo tamaño
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio, height: size.height * widthRatio)
         }
+        
+        // Redimensionar la imagen
+        let rect = CGRect(origin: .zero, size: newSize)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
 }
 
 
@@ -221,7 +222,7 @@ extension HomeViewController: HorizontalPaginationManagerDelegate {
     }
     
     func refreshAll(completion: @escaping (Bool) -> Void) {
-        delay(5.0) {
+        delay(2.0) {
             self.gridImages = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
             self.gridView.reloadData()
             completion(true)
@@ -229,14 +230,16 @@ extension HomeViewController: HorizontalPaginationManagerDelegate {
     }
     
     func loadMore(completion: @escaping (Bool) -> Void) {
-        delay(5.0) {
-            self.gridImages.append(contentsOf: [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!, UIImage(named: "f5")!, UIImage(named: "f6")!])
+        print("load more")
+        delay(2.0) {
+            self.gridImages.append(contentsOf: [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!, UIImage(named: "f5")!, UIImage(named: "f6")!, UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!, UIImage(named: "f5")!, UIImage(named: "f3")!])
             self.gridView.reloadData()
             completion(true)
         }
     }
     
 }
+
 public func delay(_ delay: Double, closure: @escaping () -> Void) {
     let deadline = DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
     DispatchQueue.main.asyncAfter(

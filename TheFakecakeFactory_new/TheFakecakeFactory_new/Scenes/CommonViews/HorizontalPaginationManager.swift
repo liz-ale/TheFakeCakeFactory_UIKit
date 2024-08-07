@@ -143,8 +143,10 @@ extension HorizontalPaginationManager {
         let contentWidth = self.scrollView.contentSize.width
         let frameWidth = self.scrollView.bounds.size.width
         let diffX = contentWidth - frameWidth
-        if contentWidth > frameWidth,
-        offsetX > (diffX + 130) && !self.isLoading {
+        print(contentWidth)
+        print(frameWidth)
+        if contentWidth <= frameWidth,
+        offsetX <= (diffX + 130) && !self.isLoading {
             self.isLoading = true
             self.addRightMostControl()
             self.delegate?.loadMore { success in
