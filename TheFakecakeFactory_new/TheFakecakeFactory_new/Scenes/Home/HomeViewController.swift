@@ -110,28 +110,50 @@ class HomeViewController: UIViewController {
         gridView.translatesAutoresizingMaskIntoConstraints = false
         secondaryCarousel.translatesAutoresizingMaskIntoConstraints = false
         
+//        NSLayoutConstraint.activate([
+//            carousel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -50),
+//            carousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            carousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            carousel.heightAnchor.constraint(equalToConstant: 200),
+//            
+//            gridView.topAnchor.constraint(equalTo: carousel.bottomAnchor, constant: 20),
+//            gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+//            gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+//            gridView.heightAnchor.constraint(equalToConstant: 300),
+//            
+//            secondaryCarousel.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 20),
+//            secondaryCarousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            secondaryCarousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            secondaryCarousel.heightAnchor.constraint(equalToConstant: 130),
+//            
+//            visitButton.topAnchor.constraint(equalTo: secondaryCarousel.bottomAnchor, constant: 20),
+//            visitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            visitButton.widthAnchor.constraint(equalToConstant: 350),
+//            visitButton.heightAnchor.constraint(equalToConstant: 60),
+//            visitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+//        ])
         NSLayoutConstraint.activate([
-            carousel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -50),
-            carousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            carousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            carousel.heightAnchor.constraint(equalToConstant: 200),
-            
-            gridView.topAnchor.constraint(equalTo: carousel.bottomAnchor, constant: 20),
-            gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            gridView.heightAnchor.constraint(equalToConstant: 300),
-            
-            secondaryCarousel.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 20),
-            secondaryCarousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            secondaryCarousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            secondaryCarousel.heightAnchor.constraint(equalToConstant: 130),
-            
-            visitButton.topAnchor.constraint(equalTo: secondaryCarousel.bottomAnchor, constant: 20),
-            visitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            visitButton.widthAnchor.constraint(equalToConstant: 350),
-            visitButton.heightAnchor.constraint(equalToConstant: 60),
-            visitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+                carousel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                carousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                carousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                carousel.heightAnchor.constraint(equalToConstant: 200),
+                
+                gridView.topAnchor.constraint(equalTo: carousel.bottomAnchor, constant: 10),
+                gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
+                gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
+                gridView.heightAnchor.constraint(equalToConstant: 250), // Reduce la altura si es necesario
+                
+                secondaryCarousel.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 10),
+                secondaryCarousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                secondaryCarousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                secondaryCarousel.heightAnchor.constraint(equalToConstant: 130),
+                
+                visitButton.topAnchor.constraint(equalTo: secondaryCarousel.bottomAnchor, constant: 10),
+                visitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                visitButton.widthAnchor.constraint(equalToConstant: 350),
+                visitButton.heightAnchor.constraint(equalToConstant: 60),
+                visitButton.bottomAnchor.constraint(lessThanOrEqualTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10) // Ajuste aquí
+            ])
     }
     
     @objc private func visitButtonTapped() {
