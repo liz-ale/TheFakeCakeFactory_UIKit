@@ -27,6 +27,8 @@
 		1884D3862C653DCD00D744C1 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 1884D3852C653DCD00D744C1 /* FirebaseAnalytics */; };
 		1884D3882C653DCD00D744C1 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 1884D3872C653DCD00D744C1 /* FirebaseAnalyticsOnDeviceConversion */; };
 		1884D38A2C6540F800D744C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1884D3892C6540F800D744C1 /* GoogleService-Info.plist */; };
+		1884D38D2C656BAB00D744C1 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884D38C2C656BAB00D744C1 /* Network.swift */; };
+		1884D3902C656BBF00D744C1 /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884D38F2C656BBF00D744C1 /* AppStorage.swift */; };
 		18A60C502C61813E006388FB /* CameraGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */; };
 		18A60C602C62D00E006388FB /* HorizontalPaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C5F2C62D00E006388FB /* HorizontalPaginationManager.swift */; };
 		18A60C622C62D609006388FB /* HorizontalColectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C612C62D609006388FB /* HorizontalColectionCell.swift */; };
@@ -56,6 +58,8 @@
 		187D71712C5D77450059EE2B /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		187D71742C5D8DA00059EE2B /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		1884D3892C6540F800D744C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		1884D38C2C656BAB00D744C1 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		1884D38F2C656BBF00D744C1 /* AppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorage.swift; sourceTree = "<group>"; };
 		18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraGalleryViewController.swift; sourceTree = "<group>"; };
 		18A60C5F2C62D00E006388FB /* HorizontalPaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPaginationManager.swift; sourceTree = "<group>"; };
 		18A60C612C62D609006388FB /* HorizontalColectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalColectionCell.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				187D71322C5D3F650059EE2B /* App */,
+				1884D38B2C656B8C00D744C1 /* Services */,
 				18A60C702C63E7A2006388FB /* Storage */,
 				187D71352C5D3FD60059EE2B /* Scenes */,
 				187D712C2C5D3F5F0059EE2B /* Info.plist */,
@@ -220,6 +225,23 @@
 			path = Signup;
 			sourceTree = "<group>";
 		};
+		1884D38B2C656B8C00D744C1 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1884D38C2C656BAB00D744C1 /* Network.swift */,
+				1884D38E2C656BB400D744C1 /* AppStorage */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1884D38E2C656BB400D744C1 /* AppStorage */ = {
+			isa = PBXGroup;
+			children = (
+				1884D38F2C656BBF00D744C1 /* AppStorage.swift */,
+			);
+			path = AppStorage;
+			sourceTree = "<group>";
+		};
 		18A60C4E2C6180AF006388FB /* CameraGallery */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +343,7 @@
 				187D71232C5D3F5E0059EE2B /* TopTabBarController.swift in Sources */,
 				187D711F2C5D3F5E0059EE2B /* AppDelegate.swift in Sources */,
 				187D71212C5D3F5E0059EE2B /* SceneDelegate.swift in Sources */,
+				1884D38D2C656BAB00D744C1 /* Network.swift in Sources */,
 				187D713E2C5D403E0059EE2B /* LoginViewController.swift in Sources */,
 				18A60C622C62D609006388FB /* HorizontalColectionCell.swift in Sources */,
 				187D71442C5D40620059EE2B /* ProfileViewController.swift in Sources */,
@@ -328,6 +351,7 @@
 				187D71702C5D689F0059EE2B /* MapViewController.swift in Sources */,
 				187D71752C5D8DA00059EE2B /* SignupViewController.swift in Sources */,
 				187D71412C5D404C0059EE2B /* FavoritesViewController.swift in Sources */,
+				1884D3902C656BBF00D744C1 /* AppStorage.swift in Sources */,
 				187D71462C5D42100059EE2B /* LocationPermissionViewController.swift in Sources */,
 				187D713C2C5D40330059EE2B /* HomeViewController.swift in Sources */,
 				18A60C722C63E7CC006388FB /* StorageProvider.swift in Sources */,
