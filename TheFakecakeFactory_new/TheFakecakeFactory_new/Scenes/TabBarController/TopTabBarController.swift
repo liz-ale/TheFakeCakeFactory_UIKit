@@ -5,6 +5,7 @@
 //  Created by lizbeth.alejandro on 02/08/24.
 //
 import UIKit
+import FirebaseAnalytics
 
 class TopTabBarController: UIViewController {
     private var tabBar: UIStackView!
@@ -106,26 +107,14 @@ class TopTabBarController: UIViewController {
     }
     
     @objc private func favoritesButtonTapped() {
+        Analytics.logEvent("favorites_open", parameters: nil)
         selectViewController(favoritesVC)
     }
     
     @objc private func profileButtonTapped() {
+        Analytics.logEvent("profile_open", parameters: nil)
         selectViewController(profileVC)
     }
-    
-//    private func selectViewController(_ viewController: UIViewController) {
-//        if let currentVC = currentViewController {
-//            currentVC.view.removeFromSuperview()
-//            currentVC.removeFromParent()
-//        }
-//        
-//        addChild(viewController)
-//        viewController.view.frame = containerView.bounds
-//        containerView.addSubview(viewController.view)
-//        viewController.didMove(toParent: self)
-//        
-//        currentViewController = viewController
-//    }
     
     private func selectViewController(_ viewController: UIViewController) {
         if let currentVC = currentViewController {
