@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class StorageProvider {
     let persistenceContainer: NSPersistentContainer
@@ -97,3 +98,18 @@ extension StorageProvider {
     }
 }
 
+extension StorageProvider {
+    
+    func updateUserProfileImage(_ image: UIImage) {
+        guard let user = currentUser else { return }
+        if let imageData = image.jpegData(compressionQuality: 0.8) {
+            user.profileImage = imageData
+            do {
+                try persistenceContainer.viewContext.save()
+                print("Profile image updated successfully")
+            } catch {
+                print("Failed to update profile image: \(error)")
+            }
+        }
+    }
+}

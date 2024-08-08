@@ -7,7 +7,24 @@
 
 import UIKit
 
+protocol CameraGalleryViewControllerDelegate: AnyObject {
+    func didSelectImage(_ image: UIImage)
+}
+
 class CameraGalleryViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    weak var delegate: CameraGalleryViewControllerDelegate?
+    
+    private let storageProvider: StorageProvider
+    
+    init(storageProvider: StorageProvider) {
+        self.storageProvider = storageProvider
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     private let cameraButton: UIButton = {
         let button = UIButton(type: .system)
@@ -96,7 +113,8 @@ class CameraGalleryViewController: UIViewController, UIImagePickerControllerDele
         let imagePickerController = UIImagePickerController()
         imagePickerController.delegate = self
         imagePickerController.sourceType = .photoLibrary
-        present(imagePickerController, animated: true, completion: nil)
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true)
     }
     
     @objc private func cameraButtonTapped() {
@@ -116,11 +134,14 @@ class CameraGalleryViewController: UIViewController, UIImagePickerControllerDele
     
     // UIImagePickerControllerDelegate methods
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        picker.dismiss(animated: true, completion: nil)
         
-        if let selectedImage = info[.originalImage] as? UIImage {
-            profileImageView?.image = selectedImage
-        }
+        guard let selectedImage = info[.editedImage] as? UIImage else { return }
+        profileImageView?.image = selectedImage
+        //delegate?.didSelectImage(selectedImage)
+        let _ = selectedImage.jpegData(compressionQuality: 0.8)
+        storageProvider.updateUserProfileImage(selectedImage)
+        picker.dismiss(animated: true, completion: nil)
+    
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

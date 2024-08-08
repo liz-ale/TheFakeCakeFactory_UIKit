@@ -91,18 +91,21 @@ class ProfileViewController: UIViewController {
     private let phoneTextField: UITextField = createTextField(placeholder: "Phone")
     private let addressTextField: UITextField = createTextField(placeholder: "Address")
     
-    private let updateButton: UIButton = {
-        let button = UIButton(type: .system)
+    private lazy var updateButton: UIButton = {
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "Actualizar"
+        configuration.baseBackgroundColor = .white
+        configuration.baseForegroundColor = .customGray
+        configuration.cornerStyle = .medium
+        configuration.background.strokeColor = .gray
+        configuration.background.strokeWidth = 1
+        configuration.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
+        
+        let button = UIButton(configuration: configuration, primaryAction: nil)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Actualizar", for: .normal)
-        button.backgroundColor = .white
-        button.tintColor = .customGray
-        button.layer.cornerRadius = 20
-        button.layer.borderColor = UIColor.gray.cgColor
-        button.layer.borderWidth = 1
         button.widthAnchor.constraint(equalToConstant: 130).isActive = true
         button.heightAnchor.constraint(equalToConstant: 47).isActive = true
-        button.addTarget(ProfileViewController.self, action: #selector(updateButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -213,7 +216,7 @@ class ProfileViewController: UIViewController {
     }
     
     @objc private func profileImageTapped() {
-        let locationVC = CameraGalleryViewController()
+        let locationVC = CameraGalleryViewController(storageProvider: storageProvider)
         locationVC.modalPresentationStyle = .pageSheet
         
         let smallDetentId = UISheetPresentationController.Detent.Identifier("small")
@@ -227,6 +230,7 @@ class ProfileViewController: UIViewController {
             sheet.prefersGrabberVisible = true
         }
         present(locationVC, animated: true, completion: nil)
+        
     }
     
     @objc private func updateButtonTapped() {
@@ -238,17 +242,14 @@ class ProfileViewController: UIViewController {
             showAlert(message: "Por favor, complete todos los campos.")
             return
         }
-        
-        // Actualizar los datos del usuario en CoreData
+       
         storageProvider.updateUser(name: name, email: email, address: address, phone: phone)
         
-        // Actualizar las etiquetas con los nuevos datos
         nameLabel.text = "\(name)"
         emailLabel.text = " \(email)"
         addressLabel.text = " \(address)"
         phoneLabel.text = " \(phone)"
         
-        // Mostrar alerta de éxito
         showAlert(message: "Datos actualizados exitosamente.")
     }
         
@@ -266,10 +267,16 @@ class ProfileViewController: UIViewController {
         phoneLabel.text = "\(user.phone ?? "Telefóno")"
         addressLabel.text = "\(user.address ?? "Dirección")"
         
-        // Rellenar los campos de texto con los datos actuales del usuario
         nameTextField.text = user.name
         emailTextField.text = user.email
         phoneTextField.text = user.phone
         addressTextField.text = user.address
+        
+        if let profileImageData = user.profileImage, let profileImage = UIImage(data: profileImageData) {
+            profileImageView.image = profileImage
+        } else {
+            profileImageView.image = UIImage(systemName: "person.circle")
+        }
     }
 }
+
