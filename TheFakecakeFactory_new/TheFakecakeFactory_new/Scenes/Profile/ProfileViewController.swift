@@ -216,20 +216,21 @@ class ProfileViewController: UIViewController {
     }
     
     @objc private func profileImageTapped() {
-        let locationVC = CameraGalleryViewController(storageProvider: storageProvider)
-        locationVC.modalPresentationStyle = .pageSheet
+        let cameraVC = CameraGalleryViewController(storageProvider: storageProvider)
+        cameraVC.modalPresentationStyle = .pageSheet
+        cameraVC.profileImageView = self.profileImageView
         
         let smallDetentId = UISheetPresentationController.Detent.Identifier("small")
         let smallDetent = UISheetPresentationController.Detent.custom(identifier: smallDetentId) { context in
             return 150
         }
         
-        if let sheet = locationVC.sheetPresentationController {
+        if let sheet = cameraVC.sheetPresentationController {
             //sheet.detents = [.medium()]
             sheet.detents = [smallDetent]
             sheet.prefersGrabberVisible = true
         }
-        present(locationVC, animated: true, completion: nil)
+        present(cameraVC, animated: true, completion: nil)
         
     }
     
@@ -277,6 +278,7 @@ class ProfileViewController: UIViewController {
         } else {
             profileImageView.image = UIImage(systemName: "person.circle")
         }
+        
     }
 }
 

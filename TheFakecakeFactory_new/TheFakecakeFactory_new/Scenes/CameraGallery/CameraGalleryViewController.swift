@@ -7,13 +7,7 @@
 
 import UIKit
 
-protocol CameraGalleryViewControllerDelegate: AnyObject {
-    func didSelectImage(_ image: UIImage)
-}
-
 class CameraGalleryViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
-    weak var delegate: CameraGalleryViewControllerDelegate?
     
     private let storageProvider: StorageProvider
     
@@ -137,7 +131,6 @@ class CameraGalleryViewController: UIViewController, UIImagePickerControllerDele
         
         guard let selectedImage = info[.editedImage] as? UIImage else { return }
         profileImageView?.image = selectedImage
-        //delegate?.didSelectImage(selectedImage)
         let _ = selectedImage.jpegData(compressionQuality: 0.8)
         storageProvider.updateUserProfileImage(selectedImage)
         picker.dismiss(animated: true, completion: nil)

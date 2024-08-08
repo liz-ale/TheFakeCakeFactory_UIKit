@@ -92,6 +92,7 @@ class TopTabBarController: UIViewController {
         button.contentVerticalAlignment = .center
         button.contentHorizontalAlignment = .center
         button.backgroundColor = backgroundColor
+        button.translatesAutoresizingMaskIntoConstraints = false
         
         let spacing: CGFloat = 6.0 // Espacio entre la imagen y el título
         button.titleEdgeInsets = UIEdgeInsets(top: spacing, left: -image!.size.width, bottom: -image!.size.height, right: 0)
@@ -112,6 +113,20 @@ class TopTabBarController: UIViewController {
         selectViewController(profileVC)
     }
     
+//    private func selectViewController(_ viewController: UIViewController) {
+//        if let currentVC = currentViewController {
+//            currentVC.view.removeFromSuperview()
+//            currentVC.removeFromParent()
+//        }
+//        
+//        addChild(viewController)
+//        viewController.view.frame = containerView.bounds
+//        containerView.addSubview(viewController.view)
+//        viewController.didMove(toParent: self)
+//        
+//        currentViewController = viewController
+//    }
+    
     private func selectViewController(_ viewController: UIViewController) {
         if let currentVC = currentViewController {
             currentVC.view.removeFromSuperview()
@@ -119,10 +134,18 @@ class TopTabBarController: UIViewController {
         }
         
         addChild(viewController)
-        viewController.view.frame = containerView.bounds
-        containerView.addSubview(viewController.view)
-        viewController.didMove(toParent: self)
         
+        containerView.addSubview(viewController.view)
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            viewController.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+            viewController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            viewController.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            viewController.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+        ])
+        
+        viewController.didMove(toParent: self)
         currentViewController = viewController
     }
 }
