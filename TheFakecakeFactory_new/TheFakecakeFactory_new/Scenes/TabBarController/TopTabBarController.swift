@@ -24,7 +24,7 @@ class TopTabBarController: UIViewController {
     }
     
     private lazy var homeVC = UINavigationController(rootViewController: HomeViewController(viewModel: homeViewModel))
-    private let favoritesVC = UINavigationController(rootViewController: FavoritesViewController())
+    private lazy var favoritesVC = UINavigationController(rootViewController: FavoritesViewController(interactor: interactor))
     lazy var profileVC = UINavigationController(rootViewController: ProfileViewController(storageProvider: storageProvider))
     
     private var viewControllers: [UIViewController]!

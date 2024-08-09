@@ -8,6 +8,17 @@
 import UIKit
 
 class FavoritesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    let interactor: CakesInteractor
+    
+    init(interactor: CakesInteractor) {
+        self.interactor = interactor
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     
     private var carouselImages: [UIImage] = []
     private let carousel = CarouselView()

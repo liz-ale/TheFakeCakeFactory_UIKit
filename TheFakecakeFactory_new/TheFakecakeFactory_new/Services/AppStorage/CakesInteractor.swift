@@ -9,7 +9,7 @@ import Foundation
 class CakesInteractor {
     var cakes: CakesResponse?
     var network = Network()
-    var favoriteCakes: Set<CakesResponse> = []
+    var favoriteCakes: Set<Cake> = []
     
     func fetchData(completion: @escaping (CakesResponse?) -> Void) {
         network.fetchCakes { [weak self] result in
@@ -24,5 +24,17 @@ class CakesInteractor {
                 completion(nil)
             }
         }
+    }
+    
+    func addFavorite(cake: Cake) {
+        favoriteCakes.insert(cake)
+    }
+    
+    func removeFavorite(cake: Cake) {
+        favoriteCakes.remove(cake)
+    }
+    
+    func isFavorite(cake: Cake) -> Bool {
+        return favoriteCakes.contains(cake)
     }
 }

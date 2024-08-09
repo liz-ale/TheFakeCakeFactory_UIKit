@@ -81,10 +81,13 @@ class DetailViewController: UIViewController {
         
         containerView.addSubview(shareButton)
         
-        let favoriteButton = UIButton(type: .system)
-        favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        var favoriteButton = UIButton(type: .system)
+        var favoriteIcon = interactor.isFavorite(cake: cake) ? "heart.fill" : "heart"
+        favoriteButton.setImage(UIImage(systemName: favoriteIcon), for: .normal)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.tintColor = .white
+        
+        favoriteButton.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
         
         containerView.addSubview(favoriteButton)
         
@@ -119,6 +122,16 @@ class DetailViewController: UIViewController {
             descriptionLabel.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20)
         ])
     }
+    
+    @objc private func didTapFavoriteButton(_ sender: UIButton) {
+            if interactor.isFavorite(cake: cake) {
+                interactor.removeFavorite(cake: cake)
+                sender.setImage(UIImage(systemName: "heart"), for: .normal)
+            } else {
+                interactor.addFavorite(cake: cake)
+                sender.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            }
+        }
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size
