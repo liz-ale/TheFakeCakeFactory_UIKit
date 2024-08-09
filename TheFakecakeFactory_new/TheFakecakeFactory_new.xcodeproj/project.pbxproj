@@ -28,7 +28,10 @@
 		1884D3882C653DCD00D744C1 /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 1884D3872C653DCD00D744C1 /* FirebaseAnalyticsOnDeviceConversion */; };
 		1884D38A2C6540F800D744C1 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1884D3892C6540F800D744C1 /* GoogleService-Info.plist */; };
 		1884D38D2C656BAB00D744C1 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884D38C2C656BAB00D744C1 /* Network.swift */; };
-		1884D3902C656BBF00D744C1 /* AppStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884D38F2C656BBF00D744C1 /* AppStorage.swift */; };
+		1884D3902C656BBF00D744C1 /* CakesInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1884D38F2C656BBF00D744C1 /* CakesInteractor.swift */; };
+		189DC5612C666DE90001D287 /* Cake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DC5602C666DE90001D287 /* Cake.swift */; };
+		189DC5632C66774A0001D287 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DC5622C66774A0001D287 /* HomeViewModel.swift */; };
+		189DC5662C6691FD0001D287 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189DC5652C6691FD0001D287 /* Extensions.swift */; };
 		18A60C502C61813E006388FB /* CameraGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */; };
 		18A60C602C62D00E006388FB /* HorizontalPaginationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C5F2C62D00E006388FB /* HorizontalPaginationManager.swift */; };
 		18A60C622C62D609006388FB /* HorizontalColectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A60C612C62D609006388FB /* HorizontalColectionCell.swift */; };
@@ -59,7 +62,10 @@
 		187D71742C5D8DA00059EE2B /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		1884D3892C6540F800D744C1 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		1884D38C2C656BAB00D744C1 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		1884D38F2C656BBF00D744C1 /* AppStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStorage.swift; sourceTree = "<group>"; };
+		1884D38F2C656BBF00D744C1 /* CakesInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CakesInteractor.swift; sourceTree = "<group>"; };
+		189DC5602C666DE90001D287 /* Cake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cake.swift; sourceTree = "<group>"; };
+		189DC5622C66774A0001D287 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		189DC5652C6691FD0001D287 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		18A60C4F2C61813E006388FB /* CameraGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraGalleryViewController.swift; sourceTree = "<group>"; };
 		18A60C5F2C62D00E006388FB /* HorizontalPaginationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalPaginationManager.swift; sourceTree = "<group>"; };
 		18A60C612C62D609006388FB /* HorizontalColectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalColectionCell.swift; sourceTree = "<group>"; };
@@ -100,10 +106,12 @@
 		187D711D2C5D3F5E0059EE2B /* TheFakecakeFactory_new */ = {
 			isa = PBXGroup;
 			children = (
+				189DC55F2C666DE20001D287 /* Model */,
 				187D71322C5D3F650059EE2B /* App */,
 				1884D38B2C656B8C00D744C1 /* Services */,
 				18A60C702C63E7A2006388FB /* Storage */,
 				187D71352C5D3FD60059EE2B /* Scenes */,
+				189DC5642C6691EF0001D287 /* Utils */,
 				187D712C2C5D3F5F0059EE2B /* Info.plist */,
 			);
 			path = TheFakecakeFactory_new;
@@ -160,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				187D713B2C5D40330059EE2B /* HomeViewController.swift */,
+				189DC5622C66774A0001D287 /* HomeViewModel.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -237,9 +246,25 @@
 		1884D38E2C656BB400D744C1 /* AppStorage */ = {
 			isa = PBXGroup;
 			children = (
-				1884D38F2C656BBF00D744C1 /* AppStorage.swift */,
+				1884D38F2C656BBF00D744C1 /* CakesInteractor.swift */,
 			);
 			path = AppStorage;
+			sourceTree = "<group>";
+		};
+		189DC55F2C666DE20001D287 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				189DC5602C666DE90001D287 /* Cake.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		189DC5642C6691EF0001D287 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				189DC5652C6691FD0001D287 /* Extensions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		18A60C4E2C6180AF006388FB /* CameraGallery */ = {
@@ -346,16 +371,19 @@
 				1884D38D2C656BAB00D744C1 /* Network.swift in Sources */,
 				187D713E2C5D403E0059EE2B /* LoginViewController.swift in Sources */,
 				18A60C622C62D609006388FB /* HorizontalColectionCell.swift in Sources */,
+				189DC5612C666DE90001D287 /* Cake.swift in Sources */,
 				187D71442C5D40620059EE2B /* ProfileViewController.swift in Sources */,
 				18A60C602C62D00E006388FB /* HorizontalPaginationManager.swift in Sources */,
 				187D71702C5D689F0059EE2B /* MapViewController.swift in Sources */,
 				187D71752C5D8DA00059EE2B /* SignupViewController.swift in Sources */,
 				187D71412C5D404C0059EE2B /* FavoritesViewController.swift in Sources */,
-				1884D3902C656BBF00D744C1 /* AppStorage.swift in Sources */,
+				1884D3902C656BBF00D744C1 /* CakesInteractor.swift in Sources */,
 				187D71462C5D42100059EE2B /* LocationPermissionViewController.swift in Sources */,
 				187D713C2C5D40330059EE2B /* HomeViewController.swift in Sources */,
 				18A60C722C63E7CC006388FB /* StorageProvider.swift in Sources */,
 				18A60C752C63E7DB006388FB /* Login.xcdatamodeld in Sources */,
+				189DC5632C66774A0001D287 /* HomeViewModel.swift in Sources */,
+				189DC5662C6691FD0001D287 /* Extensions.swift in Sources */,
 				18A60C502C61813E006388FB /* CameraGalleryViewController.swift in Sources */,
 				187D71482C5D424A0059EE2B /* DetailViewController.swift in Sources */,
 				18CAE4182C61345200B025B5 /* CustomFavoritesTableViewCell.swift in Sources */,

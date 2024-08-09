@@ -8,6 +8,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    private var viewModel: HomeViewModel
     
     private lazy var paginationManager: HorizontalPaginationManager = {
         let manager = HorizontalPaginationManager(scrollView: self.gridView)
@@ -64,7 +65,8 @@ class HomeViewController: UIViewController {
         return button
     }()
     
-    init() {
+    init(viewModel: HomeViewModel) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -84,8 +86,8 @@ class HomeViewController: UIViewController {
         
         
         carouselImages = [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!]
-        gridImages = [UIImage(named: "f5")!, UIImage(named: "f6")!, UIImage(named: "f3")!, UIImage(named: "f2")!, UIImage(named: "f1")!, UIImage(named: "f4")!, UIImage(named: "f2")!, UIImage(named: "f1")!, UIImage(named: "f4")!]
-        gridImagesPagination = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
+//        gridImages = [UIImage(named: "f5")!, UIImage(named: "f6")!, UIImage(named: "f3")!, UIImage(named: "f2")!, UIImage(named: "f1")!, UIImage(named: "f4")!, UIImage(named: "f2")!, UIImage(named: "f1")!, UIImage(named: "f4")!]
+//        gridImagesPagination = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
         secondaryCarouselImages = [UIImage(named: "sp1")!, UIImage(named: "sp2")!, UIImage(named: "sp3")!]
         
         carousel.setImages(carouselImages)
@@ -103,35 +105,21 @@ class HomeViewController: UIViewController {
         //self.setupCollectionView()
         setupPagination()
         fetchItems()
+        
+        setupBindings()
+        viewModel.fetchCakes()
+    }
+    
+    private func setupBindings() {
+        viewModel.updateUI = { [weak self] in
+            self?.gridView.reloadData()
+        }
     }
     
     private func setupConstraints() {
         carousel.translatesAutoresizingMaskIntoConstraints = false
         gridView.translatesAutoresizingMaskIntoConstraints = false
         secondaryCarousel.translatesAutoresizingMaskIntoConstraints = false
-        
-//        NSLayoutConstraint.activate([
-//            carousel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: -50),
-//            carousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            carousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            carousel.heightAnchor.constraint(equalToConstant: 200),
-//            
-//            gridView.topAnchor.constraint(equalTo: carousel.bottomAnchor, constant: 20),
-//            gridView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-//            gridView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-//            gridView.heightAnchor.constraint(equalToConstant: 300),
-//            
-//            secondaryCarousel.topAnchor.constraint(equalTo: gridView.bottomAnchor, constant: 20),
-//            secondaryCarousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            secondaryCarousel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            secondaryCarousel.heightAnchor.constraint(equalToConstant: 130),
-//            
-//            visitButton.topAnchor.constraint(equalTo: secondaryCarousel.bottomAnchor, constant: 20),
-//            visitButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            visitButton.widthAnchor.constraint(equalToConstant: 350),
-//            visitButton.heightAnchor.constraint(equalToConstant: 60),
-//            visitButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-//        ])
         NSLayoutConstraint.activate([
                 carousel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                 carousel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -177,24 +165,32 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return gridImages.count
+        return viewModel.numberOfCakes()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "GridCell", for: indexPath) as! GridCell
-//        cell.configure(with: gridImages[indexPath.item])
-//        return cell
-        let cell = collectionView.dequeueReusableCell(
-              withReuseIdentifier: "HorizontalCollectionCell",
-              for: indexPath
-           ) as! HorizontalCollectionCell
-           cell.update(with: gridImages[indexPath.item])
-           return cell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HorizontalCollectionCell", for: indexPath) as! HorizontalCollectionCell
+        
+        let baseURL = "https://eniadesign.com.mx/"
+        if let cake = viewModel.cake(at: indexPath.item) {
+            if let imageURL = URL(string: baseURL)?.appendingPathComponent(cake.image) {
+                DispatchQueue.global().async {
+                    guard let imageData = try? Data(contentsOf: imageURL) else { return }
+                    let image = UIImage(data: imageData)
+                    DispatchQueue.main.async {
+                        cell.update(with: image!)
+                    }
+                }
+            }
+        }
+        return cell
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let detailVC = DetailViewController(image: gridImages[indexPath.item])
-        navigationController?.pushViewController(detailVC, animated: true)
+//        let cake = viewModel.cakes[indexPath.item]
+//        let detailVC = DetailViewController(cake: cake, interactor: viewModel.interactor)
+//        navigationController?.pushViewController(detailVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -244,22 +240,14 @@ extension HomeViewController: HorizontalPaginationManagerDelegate {
     }
     
     func refreshAll(completion: @escaping (Bool) -> Void) {
-        delay(2.0) {
-            self.gridImages = [UIImage(named: "f1")!, UIImage(named: "f2")!, UIImage(named: "f3")!, UIImage(named: "f4")!, UIImage(named: "f5")!, UIImage(named: "f6")!]
-            self.gridView.reloadData()
-            completion(true)
-        }
+        viewModel.fetchCakes()
+        completion(true)
     }
     
     func loadMore(completion: @escaping (Bool) -> Void) {
-        print("load more")
-        delay(2.0) {
-            self.gridImages.append(contentsOf: [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!, UIImage(named: "f5")!, UIImage(named: "f6")!, UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!, UIImage(named: "f5")!, UIImage(named: "f3")!])
-            self.gridView.reloadData()
-            completion(true)
-        }
+        // Agrega lógica de paginación si es necesario
+        completion(true)
     }
-    
 }
 
 public func delay(_ delay: Double, closure: @escaping () -> Void) {

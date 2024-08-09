@@ -10,7 +10,8 @@ import FirebaseAnalytics
 class TopTabBarController: UIViewController {
     private var tabBar: UIStackView!
     private var containerView: UIView!
-    
+    private lazy var interactor = CakesInteractor()
+    private lazy var homeViewModel = HomeViewModel(interactor: interactor)
     var storageProvider: StorageProvider
     
     init(storageProvider: StorageProvider) {
@@ -22,7 +23,7 @@ class TopTabBarController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private let homeVC = UINavigationController(rootViewController: HomeViewController())
+    private lazy var homeVC = UINavigationController(rootViewController: HomeViewController(viewModel: homeViewModel))
     private let favoritesVC = UINavigationController(rootViewController: FavoritesViewController())
     lazy var profileVC = UINavigationController(rootViewController: ProfileViewController(storageProvider: storageProvider))
     
