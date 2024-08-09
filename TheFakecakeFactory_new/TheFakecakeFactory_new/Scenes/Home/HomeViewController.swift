@@ -8,7 +8,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    private var viewModel: HomeViewModel
+    var viewModel: HomeViewModel
     
     private lazy var paginationManager: HorizontalPaginationManager = {
         let manager = HorizontalPaginationManager(scrollView: self.gridView)
@@ -188,9 +188,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let cake = viewModel.cakes[indexPath.item]
-//        let detailVC = DetailViewController(cake: cake, interactor: viewModel.interactor)
-//        navigationController?.pushViewController(detailVC, animated: true)
+        guard let cake = viewModel.cake(at: indexPath.item) else { return }
+        let detailVC = DetailViewController(cake: cake, interactor: viewModel.interactor)
+        //navigationController?.pushViewController(detailVC, animated: true)
+        present(detailVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

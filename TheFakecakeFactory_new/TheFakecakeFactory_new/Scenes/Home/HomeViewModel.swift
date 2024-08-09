@@ -7,7 +7,7 @@
 import Foundation
 
 class HomeViewModel {
-    private let interactor: CakesInteractor
+    let interactor: CakesInteractor
     var cakes: [Cake] = []
     var updateUI: (() -> Void)?
     

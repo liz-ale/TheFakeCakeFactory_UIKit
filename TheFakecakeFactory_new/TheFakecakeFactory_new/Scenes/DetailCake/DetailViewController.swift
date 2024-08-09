@@ -8,10 +8,13 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    private let image: UIImage
+
+    private let cake: Cake
+    let interactor: CakesInteractor
     
-    init(image: UIImage) {
-        self.image = image
+    init(cake: Cake, interactor: CakesInteractor) {
+        self.cake = cake
+        self.interactor = interactor
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -23,10 +26,22 @@ class DetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        let imageView = UIImageView(image: image)
+        let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.frame = view.bounds
         imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        if let imageURL = URL(string: "https://eniadesign.com.mx/\(cake.image)") {
+            DispatchQueue.global().async {
+                if let imageData = try? Data(contentsOf: imageURL),
+                   let image = UIImage(data: imageData) {
+                    DispatchQueue.main.async {
+                        imageView.image = image
+                    }
+                }
+            }
+        }
+        
         view.addSubview(imageView)
         
         setupContainerView()
@@ -53,7 +68,7 @@ class DetailViewController: UIViewController {
         ])
         
         let nameLabel = UILabel()
-        nameLabel.text = "Nombre del pastel"
+        nameLabel.text = "\(cake.name)"
         nameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.textColor = .white
@@ -74,9 +89,7 @@ class DetailViewController: UIViewController {
         containerView.addSubview(favoriteButton)
         
         let descriptionLabel = UILabel()
-        descriptionLabel.text = """
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-        """
+        descriptionLabel.text = "\(cake.description)"
         descriptionLabel.numberOfLines = 0
         descriptionLabel.font = UIFont.systemFont(ofSize: 14)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
