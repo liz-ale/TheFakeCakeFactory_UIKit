@@ -139,4 +139,20 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         let detailVC = DetailViewController(cake: selectedCake, interactor: interactor)
         present(detailVC, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: nil) { [weak self] (action, view, completionHandler) in
+            guard let self = self else { return }
+            let favoriteCakesArray = Array(self.interactor.favoriteCakes)
+            let cakeToRemove = favoriteCakesArray[indexPath.section]
+            self.interactor.removeFavorite(cake: cakeToRemove)
+            tableView.deleteSections([indexPath.section], with: .automatic)
+            completionHandler(true)
+        }
+        deleteAction.image = UIImage(systemName: "trash.circle.fill")
+        deleteAction.backgroundColor = .red
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        return configuration
+    }
 }
