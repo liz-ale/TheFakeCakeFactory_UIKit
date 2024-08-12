@@ -63,10 +63,11 @@ class CustomFavoritesTableViewCell: UITableViewCell {
         ])
     }
 
-    func configure(name: String, description: String, imageName: String) {
+    func configure(name: String, description: String, imageName: UIImage) {
         nameLabel.text = name
         descriptionLabel.text = description
-        cellImageView.image = UIImage(named: imageName)
+        //cellImageView.image = UIImage(named: imageName)
+        cellImageView.image = imageName
     }
 }
 

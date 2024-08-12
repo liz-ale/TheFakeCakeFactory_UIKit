@@ -89,7 +89,8 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
     // MARK: - UITableView DataSource and Delegate
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return images.count
+        //return images.count
+        return interactor.favoriteCakes.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,9 +99,21 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "customFavoritesCell", for: indexPath) as! CustomFavoritesTableViewCell
-        cell.configure(name: "Lorem Ipsum", description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", imageName: images[indexPath.section])
-        cell.backgroundColor = .purple
-        cell.textLabel?.textColor = .white
+        let favoriteCakesArray = Array(interactor.favoriteCakes)
+        let cake = favoriteCakesArray[indexPath.section]
+        
+        let baseURL = "https://eniadesign.com.mx/"
+        if let imageURL = URL(string: baseURL)?.appendingPathComponent(cake.image) {
+            DispatchQueue.global().async {
+                guard let imageData = try? Data(contentsOf: imageURL) else { return }
+                let image = UIImage(data: imageData)
+                DispatchQueue.main.async {
+                    cell.configure(name: cake.name, description: cake.description, imageName: image!)
+                    cell.backgroundColor = .customBgPurple
+                    cell.textLabel?.textColor = .white
+                }
+            }
+        }
         return cell
     }
 
@@ -116,5 +129,12 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 5 // Set the spacing between cells
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let favoriteCakesArray = Array(interactor.favoriteCakes)
+        let selectedCake = favoriteCakesArray[indexPath.section]
+        let detailVC = DetailViewController(cake: selectedCake, interactor: interactor)
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
