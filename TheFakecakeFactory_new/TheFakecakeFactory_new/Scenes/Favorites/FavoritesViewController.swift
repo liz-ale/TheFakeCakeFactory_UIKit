@@ -38,6 +38,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         setupBannerLabel()
         setupTableView()
         setupLayout()
+        tableView.reloadData()
     }
 
     func setupCarouselView() {
@@ -90,6 +91,7 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
 
     func numberOfSections(in tableView: UITableView) -> Int {
         //return images.count
+        //return 1
         return interactor.favoriteCakes.count
     }
 
@@ -135,6 +137,6 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         let favoriteCakesArray = Array(interactor.favoriteCakes)
         let selectedCake = favoriteCakesArray[indexPath.section]
         let detailVC = DetailViewController(cake: selectedCake, interactor: interactor)
-        navigationController?.pushViewController(detailVC, animated: true)
+        present(detailVC, animated: true)
     }
 }
