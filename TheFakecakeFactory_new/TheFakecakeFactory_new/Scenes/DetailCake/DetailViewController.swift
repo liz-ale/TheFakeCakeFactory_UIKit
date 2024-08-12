@@ -81,8 +81,8 @@ class DetailViewController: UIViewController {
         
         containerView.addSubview(shareButton)
         
-        var favoriteButton = UIButton(type: .system)
-        var favoriteIcon = interactor.isFavorite(cake: cake) ? "heart.fill" : "heart"
+        lazy var favoriteButton = UIButton(type: .system)
+        lazy var favoriteIcon = interactor.isFavorite(cake: cake) ? "heart.fill" : "heart"
         favoriteButton.setImage(UIImage(systemName: favoriteIcon), for: .normal)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.tintColor = .white

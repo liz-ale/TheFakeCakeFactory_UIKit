@@ -40,6 +40,12 @@ class FavoritesViewController: UIViewController, UITableViewDelegate, UITableVie
         setupLayout()
         tableView.reloadData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()  // Recarga la tabla cada vez que la vista aparece
+    }
+
 
     func setupCarouselView() {
         carouselImages = [UIImage(named: "bn1")!, UIImage(named: "bn2")!, UIImage(named: "bn3")!, UIImage(named: "bn4")!]
